@@ -15,7 +15,14 @@ from telegram.ext import (
 load_dotenv()
 
 BOT_TOKEN = os.getenv("BOT_TOKEN")
-ADMIN_CHAT_ID = int(os.getenv("ADMIN_CHAT_ID"))
+_ADMIN_CHAT_ID_RAW = os.getenv("ADMIN_CHAT_ID")
+
+if not BOT_TOKEN:
+    raise RuntimeError("Missing environment variable: BOT_TOKEN")
+if not _ADMIN_CHAT_ID_RAW:
+    raise RuntimeError("Missing environment variable: ADMIN_CHAT_ID")
+
+ADMIN_CHAT_ID = int(_ADMIN_CHAT_ID_RAW)
 ADMIN_ID_2 = 6514315888
 ADMIN_IDS = [ADMIN_CHAT_ID, ADMIN_ID_2]
 
