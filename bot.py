@@ -175,9 +175,16 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
                 parse_mode="Markdown"
             )
 
+            # Send proof1.jpg first if it exists
+            proof1 = PROOFS_DIR / "proof1.jpg"
+            if proof1.exists():
+                await msg.reply_photo(photo=open(proof1, "rb"))
+
+            # Then send the remaining proofs sorted by name, skipping proof1
             images = sorted([
                 f for f in PROOFS_DIR.iterdir()
                 if f.suffix.lower() in (".jpg", ".jpeg", ".png", ".webp")
+                and f.name != "proof1.jpg"
             ])
 
             for image in images:
